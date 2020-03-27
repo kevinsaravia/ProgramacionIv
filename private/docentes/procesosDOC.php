@@ -1,75 +1,78 @@
 <?php 
 include('../../config/config.php');
-$alumno = new alumno($conexion);
+$docente = new docente($conexion);
 
 $proceso = '';
 if( isset($_GET['proceso']) && strlen($_GET['proceso'])>0 ){
 	$proceso = $_GET['proceso'];
 }
-$alumno->$proceso( $_GET['alumno'] );
-print_r(json_encode($alumno->respuesta));
+$docente->$proceso( $_GET['docente'] );
+print_r(json_encode($docente->respuesta));
 
-class alumno{
+class docente{
     private $datos = array(), $db;
     public $respuesta = ['msg'=>'correcto'];
     
     public function __construct($db){
         $this->db=$db;
     }
-    public function recibirDatos($alumno){
-        $this->datos = json_decode($alumno, true);
+    public function recibirDatos($docente){
+        $this->datos = json_decode($docente, true);
         $this->validar_datos();
     }
     private function validar_datos(){
         if( empty($this->datos['codigo']) ){
-            $this->respuesta['msg'] = 'por favor ingrese el codigo del estudiante';
+            $this->respuesta['msg'] = 'por favor ingrese el codigo del docente';
         }
         if( empty($this->datos['nombre']) ){
-            $this->respuesta['msg'] = 'por favor ingrese el nombre del estudiante';
+            $this->respuesta['msg'] = 'por favor ingrese el nombre del docente';
         }
-        if( empty($this->datos['direccion']) ){
-            $this->respuesta['msg'] = 'por favor ingrese la direccion del estudiante';
+        if( empty($this->datos['correo']) ){
+            $this->respuesta['msg'] = 'por favor ingrese el correo del docente';
         }
-        $this->almacenar_alumno();
+        $this->almacenar_docente();
     }
-    private function almacenar_alumno(){
+    private function almacenar_docente(){
         if( $this->respuesta['msg']==='correcto' ){
             if( $this->datos['accion']==='nuevo' ){
                 $this->db->consultas('
-                    INSERT INTO alumnos (codigo,nombre,direccion,telefono) VALUES(
+                    INSERT INTO docente (codigo,nombre,correo,telefono) VALUES(
                         "'. $this->datos['codigo'] .'",
                         "'. $this->datos['nombre'] .'",
-                        "'. $this->datos['direccion'] .'",
+                        "'. $this->datos['correo'] .'",
                         "'. $this->datos['telefono'] .'"
                     )
                 ');
                 $this->respuesta['msg'] = 'Registro insertado correctamente';
             } else if( $this->datos['accion']==='modificar' ){
                 $this->db->consultas('
-                    UPDATE alumnos SET
+                    UPDATE docente SET
                         codigo     = "'. $this->datos['codigo'] .'",
                         nombre     = "'. $this->datos['nombre'] .'",
-                        direccion  = "'. $this->datos['direccion'] .'",
+                        correo       = "'. $this->datos['correo'] .'",
                         telefono   = "'. $this->datos['telefono'] .'"
-                    WHERE idAlumno = "'. $this->datos['id_alumno'] .'"
+                    WHERE idDocente = "'. $this->datos['idDocente'] .'"
                 ');
                 $this->respuesta['msg'] = 'Registro actualizado correctamente';
             }
         }
     }
-    public function buscarAlumno($valor = ''){
+    public function buscarDocente($valor = ''){
         $this->db->consultas('
-            select alumnos.id_alumno, alumnos.codigo, alumnos.nombre, alumnos.direccion, alumnos.telefono
-            from alumnos
-            where alumnos.codigo like "%'. $valor .'%" or alumnos.nombre like "%'. $valor .'%"
+            select docente.idDocente, docente.codigo, docente.nombre, docente.correo, docente.telefono
+            from docente
+            where docente.codigo like "%'. $valor .'%" or docente.nombre like "%'. $valor .'%" or docente.correo like "%'. $valor .'%"
         ');
         return $this->respuesta = $this->db->obtener_data();
     }
-    public function eliminarAlumno($id_alumno = 0){
+
+
+    public function eliminarDocente($idDocente = 0){
+
         $this->db->consultas('
-            DELETE alumnos
-            FROM alumnos
-            WHERE alumnos.id_alumno="'.$id_alumno.'"
+            DELETE docente
+            FROM docente
+            WHERE docente.idDocente="'.$idDocente.'"
         ');
         return $this->respuesta['msg'] = 'Registro eliminado correctamente';
     }
