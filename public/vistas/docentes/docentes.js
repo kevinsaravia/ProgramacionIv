@@ -13,7 +13,7 @@ export function modulo(){
             correo       : $("#txtCorreoDocente").value,
             telefono  : $("#txtTelefonoDocente").value
         };
-        fetch(`private/modulos/docentes/procesosDOC.php?proceso=recibirDatos&docente=${JSON.stringify(docente)}`).then( resp=>resp.json() ).then(resp=>{
+        fetch(`private/modulos/docentes/procesos.php?proceso=recibirDatos&docente=${JSON.stringify(docente)}`).then( resp=>resp.json() ).then(resp=>{
             $("#respuestaDocente").innerHTML = `
                 <div class="alert alert-success" role="alert">
                     ${resp.msg}
