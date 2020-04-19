@@ -89,7 +89,7 @@
                 
                 if ( $this->datos['accion'] === 'modificar') {
 
-                    $this->db->consultas('UPDATE TipoServicio SET Servicio = "'.$this->datos['Servicio'].'", Costo = '.$this->datos['Costo']. ' WHERE Id_TipoServicio = '.$this->datos['idServicio']);
+                    $this->db->consultas('UPDATE TipoServicio SET Servicio = "'.$this->datos['Servicio'].'", Costo = '.$this->datos['Costo']. ' WHERE Id_TipoServicio = '.$this->datos['Id_TipoServicio']);
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
                 }

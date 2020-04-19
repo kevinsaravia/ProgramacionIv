@@ -114,7 +114,7 @@
                 
                 if ( $this->datos['accion'] === 'modificar') {
 
-                    $this->db->consultas('UPDATE Clientes SET Nombre = "'.$this->datos['Nombre'].'", Direccion = "'.$this->datos['Direccion'].'", Telefono = "'.$this->datos['Telefono'].'" WHERE Id_Clientes = '.$this->datos['idCliente']);
+                    $this->db->consultas('UPDATE Clientes SET Nombre = "'.$this->datos['Nombre'].'", Direccion = "'.$this->datos['Direccion'].'", Telefono = "'.$this->datos['Telefono'].'" WHERE Id_Clientes = '.$this->datos['Id_Clientes']);
 
                     $this->respuesta['msg'] = 'Registro modificado correctamente';
                 }
