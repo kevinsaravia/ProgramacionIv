@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>segundo examen parcial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="public/css/estilos.css">
+</head> 
+<body class="bg-secondary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">::.. peliculas ..::</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">INICIO <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mostrar-clientes" data-modulo="clientes" data-form="clientes" href="#">clientes</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link mostrar-alquiler" data-modulo="alquiler" data-form="alquiler" href="#">alquiler</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link mostrar-telefono" data-modulo="telefono" href="#">telefono</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link dui" data-modulo="dui" href="#">dui</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div id="modulos">
+        <div class="modulos" id="vistas-cliente"></div>
+        <div class="modulos" id="vistas-buscar-clientes"></div>
+        <div class="modulos" id="vistas-direccion"></div>
+        <div class="modulos" id="vistas-buscar-direccion"></div>
+        <div class="modulos" id="vistas-telefono"></div>
+        <div class="modulos" id="vistas-buscar-telefono"></div>
+        <div class="modulos" id="vistas-dui"></div>
+        <div class="modulos" id="vistas-buscar-dui"></div>
+      </div>
+    </div>
+    <script type="module" src="public/js/app.js"></script>
+</body>
+</html>
