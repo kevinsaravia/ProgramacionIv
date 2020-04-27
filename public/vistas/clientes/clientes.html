@@ -1,9 +1,9 @@
-<form method="post" id="frm-alumnos" data-accion='nuevo' data-idalumno="">
+<form method="post" id="frm-clientes" data-accion='nuevo' data-idalumno="">
     <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
         <div class="card-header">
-            MANTENIMIENTO DE ALUMNOS
+            MANTENIMIENTO DE CLIENTES
 
-            <button type="button" id="btn-close-alumnos" class="close" aria-label="Close">
+            <button type="button" id="btn-close-clientes" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -11,20 +11,13 @@
             <div class="row row-cols-1 p-2">
                 <div class="row-col">
                     <div class="col">
-                        CODIGO:
-                    </div>
-                    <div class="col">
-                        <input type="text" required id="txtCodigoAlumno" placeholder="XXXX000000" class="form-control">
-                    </div>
-                </div>
-            </div>
             <div class="row row-cols-1 p-2">
                 <div class="row-col">
                     <div class="col">
                         NOMBRE:
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtNombreAlumno" placeholder="AAA AAAA" class="form-control">
+                        <input type="text" required id="txtNombreclientes" placeholder="AAA AAAA" class="form-control">
                     </div>
                 </div>
             </div>
@@ -34,7 +27,7 @@
                         DIRECCION:
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtDireccionAlumno" placeholder="XXXX000000" class="form-control">
+                        <input type="text" required id="txtDireccionclientes" placeholder="XXXX000000" class="form-control">
                     </div>
                 </div>
             </div>
@@ -44,22 +37,29 @@
                         TELEFONO:
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtTelefonoAlumno" placeholder="0000-0000" class="form-control">
+                        <input type="text" required id="txtTelefonoclientes" placeholder="0000-0000" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="row row-cols-1 p-2">
                 <div class="row-col text-center">
                     <div class="col">
-                        <input id="btnGuardarAlumnos" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
+                        DUI:
+                    </div>
+                    <div class="col">
+                        <input type="text" required id="txtduiclientes" placeholder="00000000-0" class="form-control">
+                    </div>
+                </div>
+            </div>
+                        <input id="btnGuardarclientes" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
                         <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
-                        <input type="button" class="btn btn-outline-success mostrar-buscar-alumnos text-white" data-modulo="alumnos" data-form="buscar-alumnos" value="Buscar" data-modulo="buscar-alumnos" >
+                        <input type="button" class="btn btn-outline-success mostrar-buscar-clientes text-white" data-modulo="clientes" data-form="buscar-clientes" value="Buscar" data-modulo="buscar-clientes" >
                     </div>
                 </div>
             </div>
             <div class="row row-cols-1 p-2">
                 <div class="row-col text-center">
-                    <div class="col" id="respuestaAlumno"> </div>
+                    <div class="col" id="respuestaclientes"> </div>
                 </div>
             </div>
         </div>
