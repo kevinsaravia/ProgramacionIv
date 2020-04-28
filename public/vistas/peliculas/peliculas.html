@@ -1,9 +1,9 @@
-<form method="post" id="frm-pelicula" data-accion='nuevo' data-idpelicula="">
+<form method="post" id="frm-peliculas" data-accion='nuevo' data-idpelicula="">
     <div class="card text-white bg-dark mb-3" style="max-width: 24rem;">
         <div class="card-header">
-            MANTENIMIENTO DE PELICULA
+            MANTENIMIENTO DE PELICULAS
 
-            <button type="button" id="btn-close-pelicula" class="close" aria-label="Close">
+            <button type="button" id="btn-close-peliculas" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
@@ -11,55 +11,55 @@
             <div class="row row-cols-1 p-2">
                 <div class="row-col">
                     <div class="col">
-                        DESCRIPCION
+            <div class="row row-cols-1 p-2">
+                <div class="row-col">
+                    <div class="col">
+                        DESCRIPCION:
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtdescripcionpelicula" placeholder="XXXXXXX" class="form-control">
+                        <input type="text" required id="txtdescripcionpeliculas" placeholder="XXXXXXXX" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="row row-cols-1 p-2">
                 <div class="row-col">
                     <div class="col">
-                        SINOPSIS:
+                        SINOPSIS
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtsinopsispelicula" placeholder="XXXXXXX" class="form-control">
+                        <input type="text" required id="txtsinopsispeliculas" placeholder="XXXXXXXX" class="form-control">
                     </div>
                 </div>
             </div>
-            <div class="row row-cols-1 p-2">
+            <div class="row row-cols-1">
                 <div class="row-col">
                     <div class="col">
                         GENERO:
                     </div>
                     <div class="col">
-                        <input type="text" required id="txtsgeneropelicula" placeholder="XXXXXXX" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-1 p-2">
-                <div class="row-col">
-                    <div class="col">
-                        DURACION:
-                    </div>
-                    <div class="col">
-                        <input type="time" required id="txtduracionpelicula" placeholder="0000XXXX" class="form-control">
-                    </div>
-                </div>
-            </div>
-            <div class="row row-cols-1 p-2">
-                <div class="row-col">
-                    <div class="col">
-                        <input id="btnGuardarpelicula" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
-                        <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
-                        <input type="button" class="btn btn-outline-success mostrar-buscar-pelicula text-white" data-modulo="pelicula" data-form="buscar-pelicula" value="Buscar" data-modulo="buscar-pelicula" >
+                        <input type="text" required id="txtgeneropeliculas" placeholder="XXXXXXXX" class="form-control">
                     </div>
                 </div>
             </div>
             <div class="row row-cols-1 p-2">
                 <div class="row-col text-center">
-                    <div class="col" id="respuestapelicula"> </div>
+                    <div class="col">
+                        DURACION
+                    </div>
+                    <div class="col">
+                        <input type="text" required id="txtduracionpeliculas" placeholder="0000XXXXX" class="form-control">
+                    </div>
+                </div>
+            </div>
+                        <input id="btnGuardarpeliculas" type="submit" class="btn btn-outline-primary text-white" value="Guardar">
+                        <input type="reset" class="btn btn-outline-warning text-white" value="Limpiar">
+                        <input type="button" class="btn btn-outline-success mostrar-buscar-peliculas text-white" data-modulo="peliculas" data-form="buscar-peliculas" value="Buscar" data-modulo="buscar-peliculas" >
+                    </div>
+                </div>
+            </div>
+            <div class="row row-cols-1 p-2">
+                <div class="row-col text-center">
+                    <div class="col" id="respuestapeliculas"> </div>
                 </div>
             </div>
         </div>
