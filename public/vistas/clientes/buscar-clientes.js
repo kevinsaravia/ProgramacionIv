@@ -6,14 +6,14 @@ export function modulo(){
     });
     let modificarclientes = (clientes)=>{
         $("#frm-clientes").dataset.accion = 'modificar';
-        $("#frm-clientes").dataset.id_clientes = clientes.id_clientes;
-        $("#txtnombrelientes").value = clientes.nombre;
+        $("#frm-clientes").dataset.id_cliente = clientes.id_cliente;
+        $("#txtnombreclientes").value = clientes.nombre;
         $("#txtdireccionclientes").value = clientes.direccion;
         $("#txttelefonoclientes").value = clientes.telefono;
         $("#txtduiclientes").value = clientes.dui;
     };
-    let eliminarclientes = (id_clientes)=>{
-        fetch(`private/modulos/clientes/procesos.php?proceso=eliminarclientes&clientes=${id_clientes}`).then( resp=>resp.json() ).then(resp=>{
+    let eliminarclientes = (id_cliente)=>{
+        fetch(`private/modulos/clientes/procesos.php?proceso=eliminarclientes&clientes=${id_cliente}`).then( resp=>resp.json() ).then(resp=>{
             traerDatos('');
         });
     };
@@ -22,7 +22,7 @@ export function modulo(){
             let filas = ''
             resp.forEach(clientes => {
                 filas += `
-                    <tr data-idclientes='${clientes.id_clientes}' data-clientes='${ JSON.stringify(clientes) }'>
+                    <tr data-idcliente='${clientes.id_cliente}' data-clientes='${ JSON.stringify(clientes) }'>
                         <td>${clientes.nombre}</td>
                         <td>${clientes.direccion}</td>
                         <td>${clientes.telefono}</td>

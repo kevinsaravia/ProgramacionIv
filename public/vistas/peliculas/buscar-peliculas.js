@@ -1,50 +1,50 @@
 export function modulo(){
     var $ = el => document.querySelector(el),
-        frmBuscarpelicula = $("#txtBuscarpelicula");
-    frmBuscarpelicula.addEventListener('keyup',e=>{
-        traerDatos(frmBuscarpelicula.value);
+        frmBuscarpeliculas = $("#txtBuscarpeliculas");
+    frmBuscarpeliculas.addEventListener('keyup',e=>{
+        traerDatos(frmBuscarpeliculas.value);
     });
-    let modificarpelicula = (pelicula)=>{
-        $("#frm-pelicula").dataset.accion = 'modificar';
-        $("#frm-pelicula").dataset.idpelicula = pelicula.idpelicula;
-        $("#txtdescripcionpelicula").value = pelicula.descripcion;
-        $("#txtsinopsispelicula").value = pelicula.sinopsis;
-        $("#txtgeneropelicula").value = pelicula.genero;
-        $("#txtduracionpelicula").value = pelicula.duracion;
-        
+    let modificarpeliculas = (peliculas)=>{
+        $("#frm-peliculas").dataset.accion = 'modificar';
+        $("#frm-peliculas").dataset.id_peliculas = peliculas.id_peliculas;
+        $("#txtdescripcionpeliculas").value = peliculas.descripcion;
+        $("#txtsinopsispeliculas").value = peliculas.sinopsis;
+        $("#txtgeneropeliculas").value = peliculas.genero;
+        $("#txtduracionpeliculas").value = peliculas.duracion;
     };
-    let eliminarpelicula = (idpelicula)=>{
-        fetch(`private/modulos/pelicula/procesos.php?proceso=eliminarpelicula&pelicula=${idpelicula}`).then( resp=>resp.json() ).then(resp=>{
+    let eliminarpeliculas = (id_peliculas)=>{
+        fetch(`private/modulos/peliculas/procesos.php?proceso=eliminarpeliculas&peliculas=${id_peliculas}`).then( resp=>resp.json() ).then(resp=>{
             traerDatos('');
         });
     };
     let traerDatos = (valor)=>{
-        fetch(`private/modulos/pelicula/procesos.php?proceso=buscarpelicula&pelicula=${valor}`).then( resp=>resp.json() ).then(resp=>{
+        fetch(`private/modulos/peliculas/procesos.php?proceso=buscarpeliculas&peliculas=${valor}`).then( resp=>resp.json() ).then(resp=>{
             let filas = ''
-            resp.forEach(pelicula => {
+            resp.forEach(peliculas => {
                 filas += `
-                    <tr data-idpelicula='${pelicula.idpelicula}' data-pelicula='${ JSON.stringify(pelicula) }'>
-                        <td>${pelicula.descripcion}</td>
-                        <td>${pelicula.sinopsis}</td>
-                        <td>${pelicula.genero}</td>
-                        <td>${pelicula.duracion}</td>
+                    <tr data-idpeliculas='${peliculas.id_peliculas}' data-peliculas='${ JSON.stringify(peliculas) }'>
+                        <td>${peliculas.descripcion}</td>
+                        <td>${peliculas.sinopsis}</td>
+                        <td>${peliculas.genero}</td>
+                        <td>${peliculas.duracion}</td>
                         <td>
                             <input type="button" class="btn btn-outline-danger text-white" value="del">
                         </td>
                     </tr>
                 `;
             });
-            $("#tbl-buscar-pelicula > tbody").innerHTML = filas;
-            $("#tbl-buscar-pelicula > tbody").addEventListener("click",e=>{
-                if( e.srcElement.parentNode.dataset.pelicula==null ){
-                    let confirmar = confirm(`¿Estas seguro de eliminar este registro? `);
+            $("#tbl-buscar-peliculas > tbody").innerHTML = filas;
+            $("#tbl-buscar-peliculas > tbody").addEventListener("click",e=>{
+                if( e.srcElement.parentNode.dataset.peliculas==null ){
 
-                    if (confirmar == true){
-                    eliminarpelicula( e.srcElement.parentNode.parentNode.dataset.idpelicula );
-                    alert("Registro eliminado..");
+                 let confirmar =confirm(`¿Estas seguro de eliminar este registro? `);
+
+                 if (confirmar = true){
+                    eliminarpeliculas( e.srcElement.parentNode.parentNode.dataset.idpeliculas );
+                    alert("registro Eliminado correctamente..");
                 }
                 } else {
-                    modificarpelicula( JSON.parse(e.srcElement.parentNode.dataset.pelicula) );
+                    modificarpeliculas( JSON.parse(e.srcElement.parentNode.dataset.peliculas) );
                 }
             });
         });

@@ -7,7 +7,7 @@ export function modulo(){
         
         let clientes = {
             accion    : frmclientes.dataset.accion,
-            idclientes  : frmclientes.dataset.idalumno,
+            idcliente  : frmclientes.dataset.idcliente,
             nombre    : $("#txtnombreclientes").value,
             direccion : $("#txtDireccionclientes").value,
             telefono  : $("#txtTelefonoclientes").value,
@@ -23,6 +23,6 @@ export function modulo(){
     });
     frmclientes.addEventListener("reset",e=>{
         $("#frm-clientes").dataset.accion = 'nuevo';
-        $("#frm-clientes").dataset.idalumno = '';
+        $("#frm-clientes").dataset.idcliente = '';
     });
 }

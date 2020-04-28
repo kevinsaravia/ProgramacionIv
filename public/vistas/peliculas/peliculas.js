@@ -1,29 +1,28 @@
 export function modulo(){
     var $ = el => document.querySelector(el),
-        frmpelicula = $("#frm-pelicula");
-    frmpelicula.addEventListener("submit",e=>{
+        frmpeliculas = $("#frm-peliculas");
+    frmpeliculas.addEventListener("submit",e=>{
         e.preventDefault();
         e.stopPropagation();
         
-        let pelicula = {
-            accion    : frmpelicula.dataset.accion,
-            idpelicula  : frmpelicula.dataset.idpelicula,
-            descripcion    : $("#txtdescripcionpelicula").value,
-            sinopsis    : $("#txtsinopsispelicula").value,
-            genero    : $("#txtgeneropelicula").value,
-            duracion    : $("#txtduracionpelicula").value
-            
+        let peliculas = {
+            accion    : frmpeliculas.dataset.accion,
+            idpeliculas  : frmpeliculas.dataset.idalumno,
+            descripcion    : $("#txtdescripcionpeliculas").value,
+            sinopsis : $("#txtsinopsispeliculas").value,
+            genero  : $("#txtgeneropeliculas").value,
+            duracion  : $("#txtduracionpeliculas").value
         };
-        fetch(`private/modulos/pelicula/procesos.php?proceso=recibirDatos&pelicula=${JSON.stringify(pelicula)}`).then( resp=>resp.json() ).then(resp=>{
-            $("#respuestapelicula").innerHTML = `
+        fetch(`private/modulos/peliculas/procesos.php?proceso=recibirDatos&peliculas=${JSON.stringify(peliculas)}`).then( resp=>resp.json() ).then(resp=>{
+            $("#respuestapeliculas").innerHTML = `
                 <div class="alert alert-success" role="alert">
                     ${resp.msg}
                 </div>
             `;
         });
     });
-    frmpelicula.addEventListener("reset",e=>{
-        $("#frm-pelicula").dataset.accion = 'nuevo';
-        $("#frm-pelicula").dataset.pelicula = '';
+    frmpeliculas.addEventListener("reset",e=>{
+        $("#frm-peliculas").dataset.accion = 'nuevo';
+        $("#frm-peliculas").dataset.idpeliculas = '';
     });
 }
