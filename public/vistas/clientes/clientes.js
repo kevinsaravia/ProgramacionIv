@@ -1,28 +1,29 @@
-export function modulo(){
-    var $ = el => document.querySelector(el),
-        frmclientes = $("#frm-clientes");
-    frmclientes.addEventListener("submit",e=>{
-        e.preventDefault();
-        e.stopPropagation();
-        
-        let clientes = {
-            accion    : frmclientes.dataset.accion,
-            idcliente  : frmclientes.dataset.idcliente,
-            nombre    : $("#txtnombreclientes").value,
-            direccion : $("#txtDireccionclientes").value,
-            telefono  : $("#txtTelefonoclientes").value,
-            dui  : $("#txtduiclientes").value
-        };
-        fetch(`private/modulos/clientes/procesos.php?proceso=recibirDatos&clientes=${JSON.stringify(clientes)}`).then( resp=>resp.json() ).then(resp=>{
-            $("#respuestaclientes").innerHTML = `
-                <div class="alert alert-success" role="alert">
-                    ${resp.msg}
-                </div>
-            `;
-        });
-    });
-    frmclientes.addEventListener("reset",e=>{
-        $("#frm-clientes").dataset.accion = 'nuevo';
-        $("#frm-clientes").dataset.idcliente = '';
-    });
-}
+
+var appcliente = new Vue({
+    el:'#frm-clientes',
+    data:{
+        cliente:{
+            idCliente  : 0,
+            accion    : 'nuevo',
+            nombre    : '',
+            direccion : '',
+            telefono  : '',
+            dui       : '',
+            msg       : ''
+        }
+    },
+    methods:{
+        guardarAlumno:function(){
+            fetch(`private/Modulos/clientes/procesos.php?proceso=recibirDatos&alumno=${JSON.stringify(this.cliente)}`).then( resp=>resp.json() ).then(resp=>{
+                this.cliente.msg = resp.msg;
+                this.cliente.idCliente = 0;
+                this.cliente.nombre = '';
+                this.cliente.direccion = '';
+                this.cliente.telefono = '';
+                this.cliente.dui = '';
+                this.cliente.accion = 'nuevo';
+                appBuscarAlumnos.buscarAlumno();
+            });
+        }
+    }
+});

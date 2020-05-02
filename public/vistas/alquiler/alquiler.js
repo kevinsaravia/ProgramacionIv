@@ -1,29 +1,43 @@
-export function modulo(){
-    var $ = el => document.querySelector(el),
-        frmalquiler = $("#frm-alquiler");
-    frmalquiler.addEventListener("submit",e=>{
-        e.preventDefault();
-        e.stopPropagation();
-        
-        let alquiler = {
-            accion    : frmalquiler.dataset.accion,
-            idalquiler  : frmalquiler.dataset.idalquiler,
-            idcliente    : $("#txtidclientealquiler").value,
-            idpelicula    : $("#txtidpeliculaalquiler").value,
-            fechaprestamo      : $("#txtfechaprestamoalquiler").value,
-            fechadevolucion  : $("#txtfechadevolucionalquiler").value,
-            valor  : $("#txtvaloralquiler").value
-        };
-        fetch(`private/modulos/alquiler/procesos.php?proceso=recibirDatos&alquiler=${JSON.stringify(alquiler)}`).then( resp=>resp.json() ).then(resp=>{
-            $("#respuestaalquiler").innerHTML = `
-                <div class="alert alert-success" role="alert">
-                    ${resp.msg}
-                </div>
-            `;
+Vue.component('v-select', VueSelect.VueSelect);
+
+var appalquiler = new Vue({
+    el:'#frm-alquiler',
+    data:{
+        alquiler:{
+            idAlquiler : 0,
+            accion    : 'nuevo',
+            cliente   : {
+                idCliente : 0,
+                cliente   : ''
+            },
+            pelicula    : {
+                idPelicula : 0,
+                pelicula   : ''
+            },
+            fechaPrestamo    : '',
+            fechaDevolucion : '',
+            valor : '',
+            msg       : ''
+        },
+        cliente : {},
+        pelicula  : {}
+    },
+    methods:{
+        guardarMatriculas(){
+            fetch(`private/Modulos/alquiler/procesos.php?proceso=recibirDatos&matricula=${JSON.stringify(this.alquiler)}`).then( resp=>resp.json() ).then(resp=>{
+                this.alquiler.msg = resp.msg;
+            });
+        },
+        limpiarMatriculas(){
+            this.alquiler.idAlquiler=0;
+            this.alquiler.accion="nuevo";
+            this.alquiler.msg="";
+        }
+    },
+    created(){
+        fetch(`private/Modulos/alquiler/procesos.php?proceso=traer_periodos_alumnos&matricula=''`).then( resp=>resp.json() ).then(resp=>{
+            this.cliente = resp.cliente;
+            this.pelicula = resp.pelicula;
         });
-    });
-    frmalquiler.addEventListener("reset",e=>{
-        $("#frm-alquiler").dataset.accion = 'nuevo';
-        $("#frm-alquiler").dataset.idalquiler = '';
-    });
-}
+    }
+});

@@ -1,7 +1,7 @@
-<form method="post" id="frm-buscar-clientes">
+<form method="POST" id="frm-buscar-clientes">
     <div class="card text-white bg-dark mb-3" style="max-width: 48rem;">
-        <div class="card-header">
-            BUSQUEDA DE CLIENTES
+        <div class="car-header">
+            BUSQUEDA CLIENTES
 
             <button type="button" id="btn-close-buscar-clientes" class="close" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -12,21 +12,30 @@
                 <thead>
                     <tr>
                         <th colspan="5">
-                            <input type="text" id="txtBuscarclientes" placeholder="dui o nombre" class="form-control">
+                            <input type="text" v-model="valor" v-on:keyup="buscarAlumno" placeholder="codigo o nombre" class="form-control">
                         </th>
                     </tr>
                     <tr>
                         <th>NOMBRE</th>
                         <th>DIRECCION</th>
                         <th>TELEFONO</th>
-                        <th>DUI</th> 
+                        <th>DUI</th>
                         <th> </th>
                     </tr>
                 </thead>
                 <tbody>
-
+                    <tr v-for="cliente in misclientes" :key="cliente.idCliente" v-on:click="modificarAlumno(cliente)">
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.dui }}</td>
+                        <td>
+                            <input v-on:click="eliminarAlumno(cliente.idCliente)" type="button" class="btn btn-outline-danger text-white" value="del">
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </form>
+<script src="public/vistas/clientes/buscar-clientes.js"></script>

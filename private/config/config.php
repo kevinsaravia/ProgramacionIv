@@ -1,7 +1,6 @@
-<?php 
-/**
- * Importamos la clase principal de conexion
- */
+<?php
+
 include('../../Conexion/DB.php');
-$conexion = new DB('localhost','root','','db_sistema_peliculas');
+$conexion = new Conexion('localhost','root','','db_sistema_peliculas');
+
 ?>
