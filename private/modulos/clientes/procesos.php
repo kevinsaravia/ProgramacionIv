@@ -1,77 +1,126 @@
-<?php 
-include('../../Config/Config.php');
-$alumno = new alumno($conexion);
+<?php
+ 
+    include('../../Config/Config.php');
 
-$proceso = '';
-if( isset($_GET['proceso']) && strlen($_GET['proceso'])>0 ){
-	$proceso = $_GET['proceso'];
-}
-$alumno->$proceso( $_GET['alumno'] );
-print_r(json_encode($alumno->respuesta));
+    $Clientes = new Clientes($conexion);
 
-class alumno{
-    private $datos = array(), $db;
-    public $respuesta = ['msg'=>'correcto'];
-    
-    public function __construct($db){
-        $this->db=$db;
+    $proceso = '';
+
+    if ( isset( $_GET['proceso'] ) && strlen( $_GET['proceso'] ) > 0) {
+        $proceso = $_GET['proceso'];
     }
-    public function recibirDatos($alumno){
-        $this->datos = json_decode($alumno, true);
-        $this->validar_datos();
-    }
-    private function validar_datos(){
-        if( empty($this->datos['nombre']) ){
-            $this->respuesta['msg'] = 'por favor ingrese el nombre del cliente';
+
+    $Clientes->$proceso($_GET['Cliente']);
+ 
+    print_r(json_encode($Clientes->respuesta));
+
+
+    class Clientes{
+
+        private $datos = array(), $db;
+        public $respuesta = ['msg' => 'correcto'];
+
+        public function __construct($db){
+
+            $this->db = $db; 
+
         }
-        if( empty($this->datos['direccion']) ){
-            $this->respuesta['msg'] = 'por favor ingrese la direccion del cliente';
+
+        public function recibirDatos($Clientes){
+
+            $this->datos = json_decode($Clientes, true);
+            $this->validar_datos();
+
         }
-        if( empty($this->datos['dui']) ){
-            $this->respuesta['msg'] = 'por favor ingrese el dui del cliente';
+
+        private function validar_datos(){
+
+
+            if ( empty( $this->datos['Nombre']) ) {
+                
+                $this->respuesta['msg'] = 'Por favor ingrese el nombre del empleado';
+
+            }
+
+            if ( empty( $this->datos['Direccion']) ) {
+                
+                $this->respuesta['msg'] = 'Por favor ingrese la direccion del empleado';
+
+            }
+
+            if( $this->datos['accion'] == 'nuevo'){
+                $this->almacenar_Clientes();
+            }
+            else{
+                $this->modificarClientes();
+            }
+
+
         }
-        $this->almacenar_alumno();
-    }
-    private function almacenar_alumno(){
-        if( $this->respuesta['msg']==='correcto' ){
-            if( $this->datos['accion']==='nuevo' ){
-                $this->db->consultas('
-                    INSERT INTO clientes (nombre,direccion,telefono,dui) VALUES(
-                        "'. $this->datos['nombre'] .'",
-                        "'. $this->datos['direccion'] .'",
-                        "'. $this->datos['telefono'] .'",
-                        "'. $this->datos['dui'] .'"
-                    )
-                ');
-                $this->respuesta['msg'] = 'Registro insertado correctamente';
-            } else if( $this->datos['accion']==='modificar' ){
-                $this->db->consultas('
-                   UPDATE clientes SET
-                        nombre     = "'. $this->datos['nombre'] .'",
-                        direccion  = "'. $this->datos['direccion'] .'",
-                        telefono   = "'. $this->datos['telefono'] .'",
-                        dui        = "'. $this->datos['dui'] .'"
-                    WHERE idCliente = "'. $this->datos['idCliente'] .'"
-                ');
-                $this->respuesta['msg'] = 'Registro actualizado correctamente';
+
+        private function almacenar_Clientes(){
+
+            if ( $this->respuesta['msg'] == 'correcto') {
+                
+                if ( $this->datos['accion'] === 'nuevo') {
+
+                    $this->db->consultas('INSERT INTO Clientes (Nombre, Direccion, Telefono, Dui) VALUES("'.$this->datos['Nombre'].'", "'.$this->datos['Direccion'].'", "'.$this->datos['Telefono'].'", "'.$this->datos['Dui'].'")');
+
+                    $this->respuesta['msg'] = 'Registro insertado correctamente';
+                }
+
+            }
+
+        }
+        
+        public function buscarClientes($valor=''){
+            $this->db->consultas('SELECT * FROM Clientes WHERE Clientes.Nombre LIKE "%'.$valor.'%"');
+            return $this->respuesta = $this->db->obtener_data();
+        }
+
+        public function traer_periodos_alumnos(){
+            $this->db->consultas('SELECT * FROM Clientes');
+            $Clientes = $this->db->obtener_data();
+            $imprimirClientes = [];
+            $imprimirClientesIDs = [];
+            for ($i=0; $i < count($Clientes); $i++) { 
+                $imprimirClientes[] = $Clientes[$i]['Nombre'];
+                $imprimirClientesIDs[] = $Clientes[$i]['Id_Clientes'];
+            }
+            // echo json_encode($imprimirClientes);
+
+            $this->db->consultas('SELECT * FROM peliculas');
+            $Vehiculos = $this->db->obtener_data();
+            $ImprimirVehiculos = [];
+            $ImprimirVehiculosIDs = [];
+            for ($i=0; $i < count($Vehiculos); $i++) { 
+                $ImprimirVehiculos[] = $Vehiculos[$i]['Descripcion'];
+                $ImprimirVehiculosIDs[] = $Vehiculos[$i]['Id_Pelicula'];
+            }
+            // echo json_encode($ImprimirVehiculos);
+            //return $this->respuesta = ['TipoVehiculos'=>$ImprimirVehiculos , 'IDVehiculos'=>$ImprimirVehiculosIDs];//array de php en v7+
+       return $this->respuesta = ['Clientes'=>$imprimirClientes, 'TipoVehiculos'=>$ImprimirVehiculos , 'IDVehiculos'=>$ImprimirVehiculosIDs, 'IDClientes'=>$imprimirClientesIDs];//array de php en v7+
+        }
+
+        public function eliminarClientes($idClientes=''){
+            $this->db->consultas('DELETE FROM Clientes WHERE Id_Clientes = '. $idClientes);
+            $this->respuesta['msg'] = 'Registro eliminado correctamente';
+        }
+
+        public function modificarClientes(){
+
+            if ( $this->respuesta['msg'] == 'correcto') {
+                
+                if ( $this->datos['accion'] === 'modificar') {
+
+                    $this->db->consultas('UPDATE Clientes SET Nombre = "'.$this->datos['Nombre'].'", Direccion = "'.$this->datos['Direccion'].'", Telefono = "'.$this->datos['Telefono'].'" , Dui = "'.$this->datos['Dui'].'" WHERE Id_Clientes = '.$this->datos['Id_Clientes']);
+
+                    $this->respuesta['msg'] = 'Registro modificado correctamente';
+                }
+                
             }
         }
+
     }
-    public function buscarAlumno($valor=''){
-        $this->db->consultas('
-            select clientes.idCliente, clientes.nombre, clientes.direccion, clientes.telefono,  clientes.dui
-            from clientes
-            where clientes.dui like "'.$valor.'%" or clientes.nombre like "'.$valor.'%" or clientes.direccion like "'.$valor.'%"
-        ');
-        return $this->respuesta = $this->db->obtener_datos();
-    }
-    public function eliminarAlumno($idCliente=''){
-        $this->db->consultas('
-            delete clientes
-            from clientes
-            where clientes.idCliente = "'.$idCliente.'"
-        ');
-        $this->respuesta['msg'] = 'Registro eliminado correctamente';
-    }
-}
+
 ?>
