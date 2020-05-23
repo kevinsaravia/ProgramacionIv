@@ -9,14 +9,13 @@ var Express = require('express'),
 
 IO.on('connection', function (socket) {
    console.log("El cliente con IP: " + socket.handshake.address+ " se ha conectado...");
-    console.log(sessionStorage.getItem('nombre'));
-    
+
 
    MongoClient.connect(url, function (err, client) {
     const db = client.db(dbName);
 
-    db.collection(`'chat'`).find({}).toArray(function (err,msg) {
-        socket.emit('messages', msg);
+    db.collection('chat').find({}).toArray(function (err,msg) {
+        IO.sockets.emit('messages', msg);
     });
 
     });
@@ -28,7 +27,7 @@ IO.on('connection', function (socket) {
  
         db.collection('chat').insert(data);
         db.collection('chat').find({}).toArray(function (err,msg) {
-            socket.emit('messages', msg);
+            IO.sockets.emit('messages', msg);
         });
  
      });
