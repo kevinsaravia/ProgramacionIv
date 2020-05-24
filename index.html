@@ -61,6 +61,9 @@
             <li class="nav-item">
                 <a class="nav-link mostrar" data-module="Estadisticas" style="margin-right: 10px;" id="estadisticas" href="#">Estadisticas</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link mostrar" data-module="Chat" style="margin-right: 10px;" id="estadisticas" href="#">Chat</a>
+            </li>
 
             <button class=" btn btn-outline-dark d-inline-block text-light mr-2 mb-3 width-100  salir" onclick="cerrarSesion()" ><i class="fa fa-sign-out" aria-hidden="true"></i>  </button>
 
@@ -75,6 +78,7 @@
         <div id="vista-Servicios"></div>
         <div id="vista-Facturacion"></div>
         <div id="vista-Estadisticas"></div>
+        <div id="vista-Chat"></div>
 
         <div id="vista-Aceite"></div>
     </div>
@@ -106,6 +110,10 @@
 
     <!-- Google Chart -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- CDN Client NodeJS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
 
 </body>
 </html>
