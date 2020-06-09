@@ -7,13 +7,45 @@ Socket.on('messages', function (data) {
 });
 
 function render(data) {
+    
     var html = data.map(function (message, index) {
-        return (`
-            <div class="message">
-                <strong>${message.nickname}</strong>
-                <p>${message.text}</p>
-            </div>
-        `);
+        if (message.nickname == sessionStorage.getItem('nombre')) {
+            if (message.text) {
+                return (`
+                <div class="message mio">
+                    <strong>${message.nickname}</strong>
+                    <p>${message.text}</p>
+                </div>
+            `);
+            }
+            else{
+                return (`
+                <div class="message mio">
+                    <strong>${message.nickname}</strong>
+                    <br>
+                    <img src="${message.img}" width="150px">
+                </div>
+            `);
+            }
+        } else {
+            if (message.text) {
+                return (`
+                <div class="message">
+                    <strong>${message.nickname}</strong>
+                    <p>${message.text}</p>
+                </div>
+            `);
+            }
+            else{
+                return (`
+                <div class="message">
+                    <strong>${message.nickname}</strong>
+                    <br>
+                    <img src="${message.img}" width="150px">
+                </div>
+            `);
+            }
+        }
     }).join('   ');
     var div_msg = document.getElementById("messages");
     div_msg.innerHTML = html;
@@ -29,3 +61,18 @@ function addMessage(e) {
     Socket.emit('add-message', message);
     return false;
 }
+
+var archivo = $("#btn_enviar")
+$(archivo).change(function () {
+    var fReader = new FileReader()
+    fReader.readAsDataURL($(archivo).prop("files")[0])
+    fReader.onloadend = function (event) {
+        var message = {
+            nickname: sessionStorage.getItem('nombre'),
+            img: event.target.result
+        };
+    
+        Socket.emit('add-message', message);
+        
+    }
+})

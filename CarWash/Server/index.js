@@ -4,7 +4,7 @@ var Express = require('express'),
     IO = require('socket.io')(Server),
     MongoClient = require('mongodb').MongoClient,
     url = 'mongodb://localhost:27017',
-    dbName = 'ChatSRP';
+    dbName = 'ChatCarWash';
 
 
 IO.on('connection', function (socket) {
@@ -25,7 +25,7 @@ IO.on('connection', function (socket) {
     MongoClient.connect(url, function (err, client) {
         const db = client.db(dbName);
  
-        db.collection('chat').insert(data);
+        db.collection('chat').insertOne(data);
         db.collection('chat').find({}).toArray(function (err,msg) {
             IO.sockets.emit('messages', msg);
         });
