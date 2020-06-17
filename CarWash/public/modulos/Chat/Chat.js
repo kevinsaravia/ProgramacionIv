@@ -3,7 +3,7 @@ var Socket = io.connect('http://localhost:6677', {'forceNew':true} );
 Socket.on('messages', function (data) {
     console.log(JSON.stringify(data));
     render(data);
-    
+    $.notification(data[data.length - 1].nickname,data[data.length - 1].text, 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Red_triangle_alert_icon.png/200px-Red_triangle_alert_icon.png');
 });
 
 function render(data) {
